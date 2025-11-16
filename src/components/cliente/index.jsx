@@ -3,14 +3,14 @@ import { AddFormCliente } from "./form.jsx";
 import { ListClientes } from "./list.jsx";
 import { useEffect, useState } from "react";
 
-const CLEAN_STATE = {
+const CLEAN_STATE_CLIENTE = {
     id: "", nome: "", cpf: "", rg: "", dataNascimento: "", sexo: "", estadoCivil: "", telefone: "", email: "", cepConsulta: "",
 };
 
 export function Cliente() {
 
     const [clientes, setClientes] = useState([]);
-    const [cliente, setCliente] = useState(CLEAN_STATE);
+    const [cliente, setCliente] = useState(CLEAN_STATE_CLIENTE);
 
     async function saveCliente({ id, ...data }) {
         if (id) {

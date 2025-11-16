@@ -3,7 +3,7 @@ import {AddFormFuncionario} from "./form.jsx";
 import {ListFuncionarios} from "./list.jsx";
 import {useEffect, useState} from "react";
 
-const CLEAN_STATE = {
+const CLEAN_STATE_FUNCIONARIO = {
     id: "", nome: "", cpf: "", rg: "", dataNascimento: "", sexo: "", estadoCivil: "", telefone: "", email: "",
     cargo: "", salario: "", bonus: "", cepConsulta: ""
 };
@@ -11,7 +11,7 @@ const CLEAN_STATE = {
 export function Funcionario() {
 
     const [funcionarios, setFuncionarios] = useState([]);
-    const [funcionario, setFuncionario] = useState(CLEAN_STATE);
+    const [funcionario, setFuncionario] = useState(CLEAN_STATE_FUNCIONARIO);
 
     async function saveFuncionario({ id, ...data }) {
         if (id) {

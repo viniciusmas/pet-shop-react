@@ -1,5 +1,10 @@
 export function ListFuncionarios({ funcionarios = [], handleDelete, handleEdit }) {
 
+    function formatDate(dateStr) {
+        if (!dateStr) return "";
+        return dateStr.split("T")[0];
+    }
+
     function Item({ id, nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, endereco, cargo, salario, bonus, handleDelete, handleEdit }) {
 
         return (
@@ -8,12 +13,12 @@ export function ListFuncionarios({ funcionarios = [], handleDelete, handleEdit }
                 <td className="w-40">{nome}</td>
                 <td className="w-32">{cpf}</td>
                 <td className="w-24">{rg}</td>
-                <td className="w-36">{dataNascimento}</td>
+                <td className="w-36">{formatDate(dataNascimento)}</td>
                 <td className="w-20">{sexo}</td>
                 <td className="w-32">{estadoCivil}</td>
                 <td className="w-32">{telefone}</td>
                 <td className="w-48">{email}</td>
-                <td className="w-48">{endereco.cep}</td>
+                <td className="w-48">{endereco?.cep || ""}</td>
                 <td className="w-48">{cargo}</td>
                 <td className="w-48">{salario}</td>
                 <td className="w-48">{bonus}</td>
