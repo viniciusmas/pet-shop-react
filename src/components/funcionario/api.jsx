@@ -1,5 +1,5 @@
 export default class ApiFuncionario {
-    static base = "http://localhost:8081/api/funcionarios";
+    static base = "https://geographical-sher-viniciusmas-db32d804.koyeb.app/api/funcionarios";
     static username = "admin";
     static password = "adminPass";
     static credentials = btoa(`${this.username}:${this.password}`);

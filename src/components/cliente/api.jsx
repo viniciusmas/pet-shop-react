@@ -1,5 +1,5 @@
 export default class ApiCliente {
-    static base = "http://localhost:8081/api/clientes";
+    static base = "https://geographical-sher-viniciusmas-db32d804.koyeb.app/api/clientes";
     static username = "admin";
     static password = "adminPass";
     static credentials = btoa(`${this.username}:${this.password}`);

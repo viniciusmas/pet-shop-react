@@ -1,5 +1,5 @@
 export default class ApiPet {
-    static base = "http://localhost:8081/api/pets";
+    static base = "https://geographical-sher-viniciusmas-db32d804.koyeb.app/api/pets";
     static username = "admin";
     static password = "adminPass";
     static credentials = btoa(`${this.username}:${this.password}`);
