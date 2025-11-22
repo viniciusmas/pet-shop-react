@@ -1,10 +1,11 @@
-FrontEnd Pet Shop
+# FrontEnd Pet Shop
 
-Módulos do Sistema de Pet Shop
-Cadastro
+### Módulos do Sistema de Pet Shop
 
-Clientes: Nome, CPF, RG, data de nascimento, sexo, estado civil, telefone, email, endereço.
-Funcionário: Nome, CPF, RG, data de nascimento, sexo, estado civil, telefone, email, endereço, cargo, salario, bônus
-Pets: Nome, espécie, raça, idade, peso, dono.
+### Cadastro
+
+* #### Clientes: Nome, CPF, RG, data de nascimento, sexo, estado civil, telefone, email, endereço.
+* #### Funcionário: Nome, CPF, RG, data de nascimento, sexo, estado civil, telefone, email, endereço, cargo, salario, bônus.
+* #### Pets: Nome, espécie, raça, idade, peso, dono.
 
 Esse projeto utiliza a API pet-shop-parent
