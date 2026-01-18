@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 const CLEAN_STATE = {
     id: "", nome: "", tipoEspecie: "", raca: "", idade: "", peso: "", tutor: ""
@@ -35,11 +36,12 @@ export function AddFormPet({ handleSave, pet }) {
         <>
             <fieldset className="fieldset border-base-300 rounded-box w-full border p-4">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
-                    <input type="hidden" name="id" value={data.id} />
+                    <input type="hidden" name="id" value={data.id}/>
                     <div className="flex gap-4 w-full">
                         <div className="flex flex-col w-full">
                             <label className="label" htmlFor="nome">Nome</label>
-                            <input className="input input-bordered w-full" type="text" id="nome" name="nome" value={data.nome} onChange={handleChange}/>
+                            <input className="input input-bordered w-full" type="text" id="nome" name="nome"
+                                   value={data.nome} onChange={handleChange}/>
                         </div>
 
                         <div className="flex flex-col w-full">
@@ -70,16 +72,25 @@ export function AddFormPet({ handleSave, pet }) {
                     <div className="flex gap-4 w-full">
                         <div className="flex flex-col w-full">
                             <label className="label" htmlFor="peso">Peso</label>
-                            <input className="input input-bordered w-full" type="text" id="peso" name="peso" value={data.peso} onChange={handleChange}/>
+                            <input className="input input-bordered w-full" type="text" id="peso" name="peso"
+                                   value={data.peso} onChange={handleChange}/>
                         </div>
 
                         <div className="flex flex-col w-full">
                             <label className="label" htmlFor="tutor">ID do tutor</label>
-                            <input className="input input-bordered w-full" type="text" id="tutor" name="tutor" value={data.tutor.id} onChange={handleChange}/>
+                            <input className="input input-bordered w-full" type="text" id="tutor" name="tutor"
+                                   value={data.tutor.id} onChange={handleChange}/>
                         </div>
                     </div>
 
-                    <input className="btn btn-primary w-full" type="submit" value="Adicionar pet"/>
+                    <div className="flex gap-4 w-full">
+                        <div className="flex flex-col w-full">
+                            <input className="btn btn-primary w-full" type="submit" value="Adicionar pet"/>
+                        </div>
+                        <div className="flex flex-col w-full">
+                            <Link to="/" className="btn btn-primary w-full">Voltar para a página inicial</Link>
+                        </div>
+                    </div>
                 </form>
             </fieldset>
         </>

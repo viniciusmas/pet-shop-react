@@ -1,50 +1,43 @@
 export default class ApiPet {
-    static base = "https://geographical-sher-viniciusmas-db32d804.koyeb.app/api/pets";
-    static username = "admin";
-    static password = "adminPass";
-    static credentials = btoa(`${this.username}:${this.password}`);
+    static base = "http://localhost:8081/api/pets";
 
-    static async Create({ nome, tipoEspecie, raca, idade, peso, tutor }) {
+    static async Create({ nome, tipoEspecie, raca, idade, peso, tutor, token }) {
         const response = await fetch(this.base, {
             method: "POST",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({ nome, tipoEspecie, raca, idade, peso, tutor: {id: tutor} })
         });
         return await response.json();
     }
 
-    static async Read() {
+    static async Read(token) {
         const response = await fetch(this.base,{
             method: "GET",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             }
         });
         return await response.json();
     }
 
-    static async Update({ id,nome, tipoEspecie, raca, idade, peso, tutor }) {
+    static async Update({ id,nome, tipoEspecie, raca, idade, peso, tutor, token }) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "PUT",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({ nome, tipoEspecie, raca, idade, peso, tutor })
         });
         return await response.json();
     }
 
-    static async Delete(id) {
+    static async Delete(id, token) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "DELETE",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             }
         });
 
@@ -61,8 +54,7 @@ export default class ApiPet {
         const response = await fetch(`${this.base}/${id}`,{
             method: "GET",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${this.token}`
             }
         });
         return await response.json();

@@ -1,5 +1,6 @@
 import { InputMask } from "@react-input/mask";
 import { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 
 const CLEAN_STATE_FUNCIONARIO = {
     id: "", nome: "", cpf: "", rg: "", dataNascimento: "", sexo: "", estadoCivil: "", telefone: "", email: "",
@@ -84,7 +85,7 @@ export function AddFormFuncionario({ handleSave, funcionario }) {
                             <label className="label" htmlFor="dataNascimento">Data de Nascimento</label>
                             <InputMask
                                 mask="__/__/____"
-                                replacement={{ _: /\d/ }}
+                                replacement={{_: /\d/}}
                                 value={formatDate(data.dataNascimento)}
                                 onChange={handleChange}
                                 id="dataNascimento"
@@ -103,32 +104,32 @@ export function AddFormFuncionario({ handleSave, funcionario }) {
                                 <option value="Masculino">Masculino</option>
                                 <option value="Feminino">Feminino</option>
                                 <option value="Outro">Outro</option>
-                        </select>
-                    </div>
+                            </select>
+                        </div>
 
-                    <div className="flex flex-col w-full">
-                        <label className="label" htmlFor="estadoCivil">Estado Civil</label>
-                        <select className="select select-bordered w-full" id="estadoCivil" name="estadoCivil"
-                                value={data.estadoCivil} onChange={handleChange}>
-                            <option value="">Selecionar</option>
-                            <option value="Solteiro">Solteiro</option>
-                            <option value="Solteira">Solteira</option>
-                            <option value="Casado">Casado</option>
-                            <option value="Casada">Casada</option>
-                            <option value="Divorciado">Divorciado</option>
-                            <option value="Divorciada">Divorciada</option>
-                            <option value="Viuvo">Viúvo</option>
-                            <option value="Viuva">Viúva</option>
-                        </select>
+                        <div className="flex flex-col w-full">
+                            <label className="label" htmlFor="estadoCivil">Estado Civil</label>
+                            <select className="select select-bordered w-full" id="estadoCivil" name="estadoCivil"
+                                    value={data.estadoCivil} onChange={handleChange}>
+                                <option value="">Selecionar</option>
+                                <option value="Solteiro">Solteiro</option>
+                                <option value="Solteira">Solteira</option>
+                                <option value="Casado">Casado</option>
+                                <option value="Casada">Casada</option>
+                                <option value="Divorciado">Divorciado</option>
+                                <option value="Divorciada">Divorciada</option>
+                                <option value="Viuvo">Viúvo</option>
+                                <option value="Viuva">Viúva</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
                     <div className="flex gap-4 w-full">
                         <div className="flex flex-col w-full">
                             <label className="label" htmlFor="telefone">Telefone</label>
                             <InputMask
                                 mask="(__) _____-____"
-                                replacement={{ _: /\d/ }}
+                                replacement={{_: /\d/}}
                                 value={data.telefone}
                                 onChange={handleChange}
                                 id="telefone"
@@ -150,7 +151,7 @@ export function AddFormFuncionario({ handleSave, funcionario }) {
                             <label className="label" htmlFor="cepConsulta">CEP</label>
                             <InputMask
                                 mask="_____-___"
-                                replacement={{ _: /\d/ }}
+                                replacement={{_: /\d/}}
                                 value={data.cepConsulta == null ? data.endereco.cep : data.cepConsulta}
                                 onChange={handleChange}
                                 id="cepConsulta"
@@ -180,7 +181,14 @@ export function AddFormFuncionario({ handleSave, funcionario }) {
                         </div>
                     </div>
 
-                    <input className="btn btn-primary w-full" type="submit" value="Salvar funcionario"/>
+                    <div className="flex gap-4 w-full">
+                        <div className="flex flex-col w-full">
+                            <input className="btn btn-primary w-full" type="submit" value="Salvar funcionario"/>
+                        </div>
+                        <div className="flex flex-col w-full">
+                            <Link to="/" className="btn btn-primary w-full">Voltar para a página inicial</Link>
+                        </div>
+                    </div>
                 </form>
             </fieldset>
         </>

@@ -1,5 +1,6 @@
 import { InputMask } from "@react-input/mask";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 const CLEAN_STATE_CLIENTE = {
     id: "", nome: "", cpf: "", rg: "", dataNascimento: "", sexo: "", estadoCivil: "", telefone: "", email: "", cepConsulta: "",
@@ -55,7 +56,7 @@ export function AddFormCliente({ handleSave, cliente }) {
                             <label className="label" htmlFor="cpf">CPF</label>
                             <InputMask
                                 mask="___.___.___-__"
-                                replacement={{ _: /\d/ }}
+                                replacement={{_: /\d/}}
                                 value={data.cpf}
                                 onChange={handleChange}
                                 id="cpf"
@@ -70,7 +71,7 @@ export function AddFormCliente({ handleSave, cliente }) {
                             <label className="label" htmlFor="rg">RG</label>
                             <InputMask
                                 mask="___.___.___"
-                                replacement={{ _: /\d/ }}
+                                replacement={{_: /\d/}}
                                 value={data.rg}
                                 onChange={handleChange}
                                 id="rg"
@@ -83,7 +84,7 @@ export function AddFormCliente({ handleSave, cliente }) {
                             <label className="label" htmlFor="dataNascimento">Data de Nascimento</label>
                             <InputMask
                                 mask="__/__/____"
-                                replacement={{ _: /\d/ }}
+                                replacement={{_: /\d/}}
                                 value={formatDate(data.dataNascimento)}
                                 onChange={handleChange}
                                 id="dataNascimento"
@@ -97,7 +98,7 @@ export function AddFormCliente({ handleSave, cliente }) {
                         <div className="flex flex-col w-full">
                             <label className="label" htmlFor="sexo">Sexo</label>
                             <select className="select select-bordered w-full" id="sexo" name="sexo" value={data.sexo}
-                                onChange={handleChange}>
+                                    onChange={handleChange}>
                                 <option value="">Selecionar</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Feminino">Feminino</option>
@@ -127,7 +128,7 @@ export function AddFormCliente({ handleSave, cliente }) {
                             <label className="label" htmlFor="telefone">Telefone</label>
                             <InputMask
                                 mask="(__) _____-____"
-                                replacement={{ _: /\d/ }}
+                                replacement={{_: /\d/}}
                                 value={data.telefone}
                                 onChange={handleChange}
                                 id="telefone"
@@ -147,7 +148,7 @@ export function AddFormCliente({ handleSave, cliente }) {
                         <label className="label" htmlFor="cepConsulta">CEP</label>
                         <InputMask
                             mask="_____-___"
-                            replacement={{ _: /\d/ }}
+                            replacement={{_: /\d/}}
                             value={data.cepConsulta == null ? data.endereco.cep : data.cepConsulta}
                             onChange={handleChange}
                             id="cepConsulta"
@@ -156,7 +157,14 @@ export function AddFormCliente({ handleSave, cliente }) {
                         />
                     </div>
 
-                    <input className="btn btn-primary w-full" type="submit" value="Salvar cliente"/>
+                    <div className="flex gap-4 w-full">
+                        <div className="flex flex-col w-full">
+                            <input className="btn btn-primary w-full" type="submit" value="Salvar cliente"/>
+                        </div>
+                        <div className="flex flex-col w-full">
+                            <Link to="/" className="btn btn-primary w-full">Voltar para a página inicial</Link>
+                        </div>
+                    </div>
                 </form>
             </fieldset>
         </>

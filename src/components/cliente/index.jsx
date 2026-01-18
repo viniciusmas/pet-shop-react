@@ -2,6 +2,7 @@ import ApiCliente from "./api.jsx";
 import { AddFormCliente } from "./form.jsx";
 import { ListClientes } from "./list.jsx";
 import { useEffect, useState } from "react";
+import {useAuth} from "../../auth/AuthContext.jsx";
 
 const CLEAN_STATE_CLIENTE = {
     id: "", nome: "", cpf: "", rg: "", dataNascimento: "", sexo: "", estadoCivil: "", telefone: "", email: "", cepConsulta: "",
@@ -9,27 +10,28 @@ const CLEAN_STATE_CLIENTE = {
 
 export function Cliente() {
 
+    const {token} = useAuth();
     const [clientes, setClientes] = useState([]);
     const [cliente, setCliente] = useState(CLEAN_STATE_CLIENTE);
 
     async function saveCliente({ id, ...data }) {
         if (id) {
-            const result = await ApiCliente.Update({ id, ...data });
+            const result = await ApiCliente.Update({ id, ...data, token });
             setClientes((prev) => prev.map((c) => (c.id === result.id ? result : c))
             );
         } else {
-            const result = await ApiCliente.Create({ ...data });
+            const result = await ApiCliente.Create({ ...data, token });
             setClientes((prev) => [...prev, result]);
         }
     }
 
     async function removeCliente(id) {
-        await ApiCliente.Delete(id);
+        await ApiCliente.Delete(id, token);
         setClientes((prev) => prev.filter((c) => c.id !== id));
     }
 
     async function GetListCliente(){
-        const result = await ApiCliente.Read();
+        const result = await ApiCliente.Read(token);
         setClientes(result);
     }
 

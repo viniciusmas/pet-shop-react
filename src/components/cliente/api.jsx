@@ -1,50 +1,42 @@
 export default class ApiCliente {
-    static base = "https://geographical-sher-viniciusmas-db32d804.koyeb.app/api/clientes";
-    static username = "admin";
-    static password = "adminPass";
-    static credentials = btoa(`${this.username}:${this.password}`);
-
-    static async Create({ nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cepConsulta }) {
+    static base = "http://localhost:8081/api/clientes";
+    static async Create({ nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cepConsulta, token }) {
         const response = await fetch(this.base, {
             method: "POST",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({ nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cepConsulta })
         });
         return await response.json();
     }
 
-    static async Read() {
+    static async Read(token) {
         const response = await fetch(this.base,{
             method: "GET",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             }
         });
         return await response.json();
     }
 
-    static async Update({ id, nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cepConsulta }) {
+    static async Update({ id, nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cepConsulta, token }) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "PUT",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({ nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cepConsulta })
         });
         return await response.json();
     }
 
-    static async Delete(id) {
+    static async Delete(id, token) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "DELETE",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             }
         });
 
@@ -61,8 +53,7 @@ export default class ApiCliente {
         const response = await fetch(`${this.base}/${id}`,{
             method: "GET",
             headers: {
-                "Authorization": `Basic ${this.credentials}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             }
         });
         return await response.json();
