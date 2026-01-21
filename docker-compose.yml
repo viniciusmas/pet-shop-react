@@ -1,0 +1,23 @@
+services:
+  frontend:
+    image: vinisouza/pet-shop-frontend:latest
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+      - keycloak
+
+  backend:
+    image: vinisouza/pet-shop-backend:latest
+    ports:
+      - "8081:8081"
+
+  keycloak:
+    image: vinisouza/keycloak-petshop:latest
+    container_name: keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: vmas
+      KEYCLOAK_ADMIN_PASSWORD: abc123@
+    command: start-dev --import-realm
