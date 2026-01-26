@@ -8,6 +8,7 @@ import './App.css'
 import Menu from "./components/menu.jsx";
 import Erro404 from "./components/404.jsx";
 import Index from "./components/index.jsx";
+import Agendar from "./components/agendamento/agendar.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
                     { path: "cliente", element: <PageCliente /> },
                     { path: "pet", element: <PagePet /> },
                     { path: "funcionario", element: <PageFuncionario /> },
+                    { path: "agendar", element: <PageAgendar /> },
                 ],
             },
         ],
@@ -86,4 +88,12 @@ function PageIndex() {
             <Index />
         </>
     );
+}
+
+function PageAgendar() {
+    return (
+        <>
+            <Agendar />
+        </>
+    )
 }

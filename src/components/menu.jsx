@@ -7,11 +7,9 @@ export default function Menu() {
     return (
         <>
             <div className="navbar bg-base-100 shadow-sm px-4">
-                <div className="navbar-start">
-                    <span className="btn btn-ghost text-xl cursor-default">Cadastro</span>
-                </div>
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 gap-1">
+                <div className="dropdown dropdown-hover">
+                    <div tabIndex={0} role="button" className="btn m-1">Cadastro</div>
+                    <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                         <li>
                             <Link to="/cliente">Cliente</Link>
                         </li>
@@ -24,7 +22,17 @@ export default function Menu() {
                     </ul>
                 </div>
 
-                <div className="navbar-end flex items-center gap-3">
+                <div className="dropdown dropdown-hover">
+                    <div tabIndex={0} role="button" className="btn m-1">Agendamento</div>
+                    <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                        <li>
+                            <Link to="/agendar">Agendar Serviços</Link>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div className="navbar-end flex items-center gap-3 fixed top-4 right-4 z-50">
                     {user && (
                         <div className="text-right text-sm leading-tight">
                             <div className="font-semibold">
