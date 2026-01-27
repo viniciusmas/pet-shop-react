@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { Users, PawPrint, Briefcase } from "lucide-react";
+import {Users, PawPrint, Briefcase, CalendarClock} from "lucide-react";
 
 export default function Index() {
     return (
         <div className="p-6 max-w-7xl mx-auto">
-            {/* TÍTULO */}
+
             <div className="mb-8">
                 <h1 className="text-3xl font-bold">Dashboard</h1>
                 <p className="text-base-content/70">
@@ -12,9 +12,7 @@ export default function Index() {
                 </p>
             </div>
 
-            {/* CARDS */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* CLIENTES */}
                 <Link to="/cliente">
                     <div className="card bg-base-100 shadow-md hover:shadow-xl transition cursor-pointer">
                         <div className="card-body items-center text-center">
@@ -27,7 +25,6 @@ export default function Index() {
                     </div>
                 </Link>
 
-                {/* PETS */}
                 <Link to="/pet">
                     <div className="card bg-base-100 shadow-md hover:shadow-xl transition cursor-pointer">
                         <div className="card-body items-center text-center">
@@ -40,7 +37,6 @@ export default function Index() {
                     </div>
                 </Link>
 
-                {/* FUNCIONÁRIOS */}
                 <Link to="/funcionario">
                     <div className="card bg-base-100 shadow-md hover:shadow-xl transition cursor-pointer">
                         <div className="card-body items-center text-center">
@@ -52,9 +48,20 @@ export default function Index() {
                         </div>
                     </div>
                 </Link>
+
+                <Link to="/agendar">
+                    <div className="card bg-base-100 shadow-md hover:shadow-xl transition cursor-pointer">
+                        <div className="card-body items-center text-center">
+                            <CalendarClock size={40} className="text-warning" />
+                            <h2 className="card-title">Agendar</h2>
+                            <p className="text-sm opacity-70">
+                                Agendamento de serviços
+                            </p>
+                        </div>
+                    </div>
+                </Link>
             </div>
 
-            {/* RODAPÉ */}
             <div className="mt-10 text-center text-sm opacity-60">
                 © {new Date().getFullYear()} Pet Shop • Sistema de Gestão
             </div>

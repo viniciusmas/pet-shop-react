@@ -181,12 +181,15 @@ export function AddFormFuncionario({ handleSave, funcionario }) {
                         </div>
                     </div>
 
-                    <div className="flex gap-4 w-full">
-                        <div className="flex flex-col w-full">
-                            <input className="btn btn-primary w-full" type="submit" value="Salvar funcionario"/>
+                    <div className="lg:col-span-4 flex justify-end gap-4 mt-4">
+                        <div className="flex flex-col">
+                            <Link to="/" className="btn btn-soft">Voltar para a página inicial</Link>
                         </div>
-                        <div className="flex flex-col w-full">
-                            <Link to="/" className="btn btn-primary w-full">Voltar para a página inicial</Link>
+                        <div className="flex flex-col">
+                            <button type="reset" className="btn btn-soft btn-secondary">Limpar</button>
+                        </div>
+                        <div className="flex flex-col">
+                            <input className="btn btn-soft btn-primary" type="submit" value="Salvar funcionário"/>
                         </div>
                     </div>
                 </form>
