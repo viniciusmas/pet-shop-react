@@ -1,25 +1,43 @@
 import { useState } from "react";
 import {Link} from "react-router-dom";
 
-export default function Agendar() {
-    const [form, setForm] = useState({
-        nomePet: "",
-        tutor: "",
-        servico: "",
-        data: "",
-        horario: "",
-        observacoes: "",
-    });
+const CLEAN_STATE_AGENDAMENTO = {
+    pet: "", cliente: "", servico: "", data: "", hora: "", funcionario: "",
+};
 
-    function handleChange(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
+export function AddFormCliente({ handleSave, agendamento }) {
+
+    const [data, setData] = useState(CLEAN_STATE_AGENDAMENTO);
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        try {
+            handleSave(data);
+            setData(CLEAN_STATE_CLIENTE);
+            alert("Agendamento realizado com sucesso 🐾");
+        } catch (error) {
+            console.log("Não foi possível salvar", error);
+        }
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log("Agendamento:", form);
-        alert("Agendamento realizado com sucesso 🐾");
+    function handleChange({ target }) {
+        const { name, value } = target;
+        setData((prev) => ({ ...prev, [name]: value }));
     }
+
+    function formatDate(dateStr) {
+        if (!dateStr) return "";
+        return dateStr.split("T")[0];
+    }
+
+    useEffect(() => {
+        setData({
+            ...CLEAN_STATE_AGENDAMENTO,
+            ...agendamento,
+            id: agendamento.id ?? ""
+        });
+    }, [agendamento]);
 
     return (
         <>
