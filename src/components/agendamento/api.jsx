@@ -1,13 +1,14 @@
 export default class ApiAgendamento {
     static base = "http://localhost:8081/api/agendamentos";
-    static async Create({ pet, cliente, servico, data, hora, funcionario, token }) {
+    static async Create({ cliente, pet, funcionario, servico, dataHora, token }) {
         const status = "AGENDADO";
         const response = await fetch(this.base, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ pet, cliente, servico, data, hora, funcionario, status })
+            body: JSON.stringify({ cliente, pet, funcionario, servico, dataHora, status })
         });
         return await response.json();
     }
@@ -22,13 +23,13 @@ export default class ApiAgendamento {
         return await response.json();
     }
 
-    static async Update({ pet, cliente, servico, data, hora, funcionario, token }) {
+    static async Update({ cliente, pet, funcionario, servico, dataHora, token }) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({ pet, cliente, servico, data, hora, funcionario })
+            body: JSON.stringify({ cliente, pet, funcionario, servico, dataHora })
         });
         return await response.json();
     }

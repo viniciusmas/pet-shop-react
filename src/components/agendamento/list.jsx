@@ -5,15 +5,14 @@ export function ListAgendamentos({ agendamentos = [], handleDelete, handleEdit }
         return dateStr.split("T")[0];
     }
 
-    function Item({ pet, cliente, servico, data, hora, funcionario, status, handleDelete, handleEdit }) {
+    function Item({ cliente, pet, funcionario, servico, dataHora, status, handleDelete, handleEdit }) {
         return (
             <tr>
-                <th className="w-12">{pet}</th>
                 <td className="w-40">{cliente}</td>
-                <td className="w-32">{servico}</td>
-                <td className="w-36">{formatDate(data)}</td>
-                <td className="w-20">{hora}</td>
+                <th className="w-12">{pet}</th>
                 <td className="w-32">{funcionario}</td>
+                <td className="w-32">{servico}</td>
+                <td className="w-36">{dataHora}</td>
                 <td className="w-32">{status}</td>
                 <td className="w-24">
                     <button className="btn btn-ghost btn-xs" onClick={() => handleDelete(id)}>Deletar</button>
@@ -30,12 +29,11 @@ export function ListAgendamentos({ agendamentos = [], handleDelete, handleEdit }
                     <thead className="bg-base-200 sticky top-0 z-10">
                     <tr>
                         <th className="w-12"></th>
-                        <th className="w-40">Pet</th>
                         <th className="w-32">Cliente</th>
+                        <th className="w-40">Pet</th>
+                        <th className="w-32">Funcionário</th>
                         <th className="w-24">Serviço</th>
                         <th className="w-36">Data</th>
-                        <th className="w-20">Hora</th>
-                        <th className="w-32">Funcionário</th>
                         <th className="w-32">Status</th>
                         <th className="w-24"></th>
                     </tr>
@@ -48,7 +46,7 @@ export function ListAgendamentos({ agendamentos = [], handleDelete, handleEdit }
                     <tbody>
                     {agendamentos.map((agendamento) => (
                         <Item
-                            key={agendamento.id}
+                            key={agendamento.cliente}
                             {...agendamento}
                             handleDelete={handleDelete}
                             handleEdit={handleEdit}

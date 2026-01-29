@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import {useAuth} from "../../auth/AuthContext.jsx";
 
 const CLEAN_STATE_AGENDAMENTO = {
-    pet: "", cliente: "", servico: "", data: "", hora: "", funcionario: "",
+    cliente: "", pet: "", funcionario: "", servico: "", dataHora: "",
 };
 
 export function Agendamento() {
@@ -44,14 +44,14 @@ export function Agendamento() {
         }
     }
 
-    useEffect(() => {
+/*    useEffect(() => {
         GetListAgendamento();
-    }, []);
+    }, []);*/
 
     return (
         <>
             <AddFormAgendamento handleSave={saveAgendamento} agendamento={agendamento} />
-            <ListAgendamentos agendamentos={agendamentos} handleDelete={removeAgendamento} handleEdit={editCallBack} />
+            {/*<ListAgendamentos agendamentos={agendamentos} handleDelete={removeAgendamento} handleEdit={editCallBack} />*/}
         </>
     )
 }

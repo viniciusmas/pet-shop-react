@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {InputMask} from "@react-input/mask";
 
 const CLEAN_STATE_AGENDAMENTO = {
-    pet: "", cliente: "", servico: "", data: "", hora: "", funcionario: "",
+    cliente: "", pet: "", funcionario: "", servico: "", dataHora: "",
 };
 
 export function AddFormAgendamento({ handleSave, agendamento }) {
@@ -15,8 +14,8 @@ export function AddFormAgendamento({ handleSave, agendamento }) {
 
         try {
             handleSave(data);
-            setData(CLEAN_STATE_CLIENTE);
-            alert("Agendamento realizado com sucesso 🐾");
+            setData(CLEAN_STATE_AGENDAMENTO);
+            //alert("Agendamento realizado com sucesso 🐾");
         } catch (error) {
             console.log("Não foi possível salvar", error);
         }
@@ -36,28 +35,16 @@ export function AddFormAgendamento({ handleSave, agendamento }) {
         setData({
             ...CLEAN_STATE_AGENDAMENTO,
             ...agendamento,
-            id: agendamento.id ?? ""
+            cliente: agendamento.cliente ?? ""
         });
     }, [agendamento]);
 
     return (
         <>
             <fieldset className="fieldset border-base-300 rounded-box w-full border p-4">
-                <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-8 gap-6">
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-16 gap-6">
 
-                    <div className="form-control lg:col-span-2">
-                        <label className="label font-medium" htmlFor="pet">Nome do Pet</label>
-                        <input
-                            type="text"
-                            id="pet"
-                            name="pet"
-                            className="input input-bordered w-full"
-                            required
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="form-control lg:col-span-2">
+                    <div className="form-control lg:col-span-3">
                         <label className="label font-medium" htmlFor="cliente">Nome do Tutor</label>
                         <input
                             type="text"
@@ -66,6 +53,32 @@ export function AddFormAgendamento({ handleSave, agendamento }) {
                             className="input input-bordered w-full"
                             required
                             onChange={handleChange}
+                            value={data.cliente}
+                        />
+                    </div>
+
+                    <div className="form-control lg:col-span-3">
+                        <label className="label font-medium" htmlFor="pet">Nome do Pet</label>
+                        <input
+                            type="text"
+                            id="pet"
+                            name="pet"
+                            className="input input-bordered w-full"
+                            required
+                            onChange={handleChange}
+                            value={data.pet}
+                        />
+                    </div>
+
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="funcionario">Funcionário</label>
+                        <input
+                            id="funcionario"
+                            name="funcionario"
+                            className="input input-bordered w-full"
+                            required
+                            onChange={handleChange}
+                            value={data.funcionario}
                         />
                     </div>
 
@@ -77,48 +90,24 @@ export function AddFormAgendamento({ handleSave, agendamento }) {
                             className="select select-bordered w-full"
                             required
                             onChange={handleChange}
+                            value={data.servico}
                         >
                             <option value="">Selecione</option>
-                            <option>Banho</option>
-                            <option>Tosa</option>
-                            <option>Banho & Tosa</option>
-                            <option>Consulta Veterinária</option>
+                            <option value="BANHO">Banho</option>
+                            <option value="TOSA">Tosa</option>
+                            <option value="BANHO_TOSA">Banho & Tosa</option>
                         </select>
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control lg:col-span-2">
                         <label className="label font-medium" htmlFor="data">Data</label>
-                        <InputMask
-                            mask="__/__/____"
-                            replacement={{_: /\d/}}
-                            value={formatDate(data.data)}
-                            onChange={handleChange}
-                            id="data"
-                            name="data"
-                            className="input input-bordered w-full"
-                        />
-                    </div>
-
-                    <div className="form-control">
-                        <label className="label font-medium" htmlFor="horario">Horário</label>
                         <input
-                            type="time"
-                            id="horario"
-                            name="horario"
-                            className="input input-bordered w-full"
-                            required
+                            id="dataHora"
+                            name="dataHora"
+                            type="datetime-local"
                             onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="form-control lg:col-span-4">
-                        <label className="label font-medium" htmlFor="funcionario">Funcionário</label>
-                        <input
-                            name="funcionario"
-                            id="funcionario"
+                            value={data.dataHora}
                             className="input input-bordered w-full"
-                            required
-                            onChange={handleChange}
                         />
                     </div>
 
