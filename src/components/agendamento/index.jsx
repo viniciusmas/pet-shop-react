@@ -9,7 +9,6 @@ const CLEAN_STATE_AGENDAMENTO = {
 };
 
 export function Agendamento() {
-
     const {token} = useAuth();
     const [agendamentos, setAgendamentos] = useState([]);
     const [agendamento, setAgendamento] = useState(CLEAN_STATE_AGENDAMENTO);

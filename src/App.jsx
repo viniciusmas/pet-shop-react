@@ -1,4 +1,4 @@
-import {createBrowserRouter, RouterProvider, Outlet, Link} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import {Funcionario} from "./components/funcionario/index.jsx";
 import {Cliente} from "./components/cliente/index.jsx";
 import {PrivateRoute} from "./auth/PrivateRoute.jsx";
@@ -8,7 +8,7 @@ import './App.css'
 import Menu from "./components/menu.jsx";
 import Erro404 from "./components/404.jsx";
 import Index from "./components/index.jsx";
-import Agendar from "./components/agendamento/agendar.jsx";
+import {Agendamento} from "./components/agendamento/index.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
                     { path: "cliente", element: <PageCliente /> },
                     { path: "pet", element: <PagePet /> },
                     { path: "funcionario", element: <PageFuncionario /> },
-                    { path: "agendar", element: <PageAgendar /> },
+                    { path: "agendamento", element: <PageAgendamento /> },
                 ],
             },
         ],
@@ -90,10 +90,10 @@ function PageIndex() {
     );
 }
 
-function PageAgendar() {
+function PageAgendamento() {
     return (
         <>
-            <Agendar />
+            <Agendamento />
         </>
     )
 }

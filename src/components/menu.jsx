@@ -26,7 +26,7 @@ export default function Menu() {
                     <div tabIndex={0} role="button" className="btn m-1">Agendamento</div>
                     <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                         <li>
-                            <Link to="/agendar">Agendar Serviços</Link>
+                            <Link to="/agendamento">Agendar Serviços</Link>
                         </li>
                     </ul>
                 </div>

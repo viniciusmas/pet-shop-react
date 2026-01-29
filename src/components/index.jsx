@@ -49,7 +49,7 @@ export default function Index() {
                     </div>
                 </Link>
 
-                <Link to="/agendar">
+                <Link to="/agendamento">
                     <div className="card bg-base-100 shadow-md hover:shadow-xl transition cursor-pointer">
                         <div className="card-body items-center text-center">
                             <CalendarClock size={40} className="text-warning" />

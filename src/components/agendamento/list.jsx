@@ -5,20 +5,16 @@ export function ListAgendamentos({ agendamentos = [], handleDelete, handleEdit }
         return dateStr.split("T")[0];
     }
 
-    function Item({ id, nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, endereco, handleDelete, handleEdit }) {
-
+    function Item({ pet, cliente, servico, data, hora, funcionario, status, handleDelete, handleEdit }) {
         return (
             <tr>
-                <th className="w-12">{id}</th>
-                <td className="w-40">{nome}</td>
-                <td className="w-32">{cpf}</td>
-                <td className="w-24">{rg}</td>
-                <td className="w-36">{formatDate(dataNascimento)}</td>
-                <td className="w-20">{sexo}</td>
-                <td className="w-32">{estadoCivil}</td>
-                <td className="w-32">{telefone}</td>
-                <td className="w-48">{email}</td>
-                <td className="w-48">{endereco?.cep || ""}</td>
+                <th className="w-12">{pet}</th>
+                <td className="w-40">{cliente}</td>
+                <td className="w-32">{servico}</td>
+                <td className="w-36">{formatDate(data)}</td>
+                <td className="w-20">{hora}</td>
+                <td className="w-32">{funcionario}</td>
+                <td className="w-32">{status}</td>
                 <td className="w-24">
                     <button className="btn btn-ghost btn-xs" onClick={() => handleDelete(id)}>Deletar</button>
                     <button className="btn btn-ghost btn-xs" onClick={() => handleEdit(id)}>Editar</button>
@@ -34,15 +30,13 @@ export function ListAgendamentos({ agendamentos = [], handleDelete, handleEdit }
                     <thead className="bg-base-200 sticky top-0 z-10">
                     <tr>
                         <th className="w-12"></th>
-                        <th className="w-40">Nome</th>
-                        <th className="w-32">CPF</th>
-                        <th className="w-24">RG</th>
-                        <th className="w-36">Data de Nascimento</th>
-                        <th className="w-20">Sexo</th>
-                        <th className="w-32">Estado Civil</th>
-                        <th className="w-32">Telefone</th>
-                        <th className="w-48">Email</th>
-                        <th className="w-48">CEP</th>
+                        <th className="w-40">Pet</th>
+                        <th className="w-32">Cliente</th>
+                        <th className="w-24">Serviço</th>
+                        <th className="w-36">Data</th>
+                        <th className="w-20">Hora</th>
+                        <th className="w-32">Funcionário</th>
+                        <th className="w-32">Status</th>
                         <th className="w-24"></th>
                     </tr>
                     </thead>
