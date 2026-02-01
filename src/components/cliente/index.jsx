@@ -16,22 +16,22 @@ export function Cliente() {
 
     async function saveCliente({ id, ...data }) {
         if (id) {
-            const result = await ApiCliente.Update({ id, ...data, token });
+            const result = await ApiCliente.AtualizarCliente({ id, ...data, token });
             setClientes((prev) => prev.map((c) => (c.id === result.id ? result : c))
             );
         } else {
-            const result = await ApiCliente.Create({ ...data, token });
+            const result = await ApiCliente.CriarCliente({ ...data, token });
             setClientes((prev) => [...prev, result]);
         }
     }
 
     async function removeCliente(id) {
-        await ApiCliente.Delete(id, token);
+        await ApiCliente.DeletarCliente(id, token);
         setClientes((prev) => prev.filter((c) => c.id !== id));
     }
 
     async function GetListCliente(){
-        const result = await ApiCliente.Read(token);
+        const result = await ApiCliente.ListarClientes(token);
         setClientes(result);
     }
 

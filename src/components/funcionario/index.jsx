@@ -17,22 +17,22 @@ export function Funcionario() {
 
     async function saveFuncionario({ id, ...data }) {
         if (id) {
-            const result = await ApiFuncionario.Update({ id, ...data, token });
+            const result = await ApiFuncionario.AtualizarFuncionario({ id, ...data, token });
             setFuncionarios((prev) => prev.map((f) => (f.id === result.id ? result : f))
             );
         } else {
-            const result = await ApiFuncionario.Create({ ...data, token });
+            const result = await ApiFuncionario.CriarFuncionario({ ...data, token });
             setFuncionarios((prev) => [...prev, result]);
         }
     }
 
     async function removeFuncionario(id) {
-        await ApiFuncionario.Delete(id, token);
+        await ApiFuncionario.DeletarFuncionario(id, token);
         setFuncionarios((prev) => prev.filter((f) => f.id !== id));
     }
 
     async function GetListFuncionario(){
-        const result = await ApiFuncionario.Read(token);
+        const result = await ApiFuncionario.ListarFuncionarios(token);
         setFuncionarios(result);
     }
 

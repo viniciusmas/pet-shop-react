@@ -1,6 +1,6 @@
-import { InputMask } from "@react-input/mask";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {InputMask} from "@react-input/mask";
 
 const CLEAN_STATE_CLIENTE = {
     id: "", nome: "", cpf: "", rg: "", dataNascimento: "", sexo: "", estadoCivil: "", telefone: "", email: "", cepConsulta: "",
@@ -9,15 +9,27 @@ const CLEAN_STATE_CLIENTE = {
 export function AddFormCliente({ handleSave, cliente }) {
 
     const [data, setData] = useState(CLEAN_STATE_CLIENTE);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(null);
 
     function handleSubmit(event) {
         event.preventDefault();
+        setSuccess(false);
+        setError(null);
 
         try {
             handleSave(data);
             setData(CLEAN_STATE_CLIENTE);
+            setSuccess(true);
         } catch (error) {
-            console.log("Não foi possível salvar", error);
+            console.log("Erro ao salvar:", error);
+
+            let mensagem = "Erro ao realizar o agendamento";
+
+            if (error.message) {
+                mensagem = err.message;
+            }
+            setError(mensagem);
         }
     }
 
@@ -31,6 +43,10 @@ export function AddFormCliente({ handleSave, cliente }) {
         return dateStr.split("T")[0];
     }
 
+    function limparForm() {
+        setData((CLEAN_STATE_CLIENTE))
+    }
+
     useEffect(() => {
         setData({
             ...CLEAN_STATE_CLIENTE,
@@ -39,113 +55,156 @@ export function AddFormCliente({ handleSave, cliente }) {
         });
     }, [cliente]);
 
+    useEffect(() => {
+        if (success || error) {
+            const timer = setTimeout(() => {
+                setSuccess(false);
+                setError(null);
+            }, 4000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [success, error]);
+
     return (
         <>
             <fieldset className="fieldset border-base-300 rounded-box w-full border p-4">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
+                {success && (
+                    <div className="alert alert-success mb-4">
+                        <span>Cliente salvo com sucesso</span>
+                    </div>
+                )}
+                {error && (
+                    <div className="alert alert-error mb-4">
+                        <span>{error}</span>
+                    </div>
+                )}
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-8 gap-6">
                     <input type="hidden" name="id" value={data.id}/>
 
-                    <div className="flex gap-4 w-full">
-                        <div className="flex flex-col w-full">
-                            <label className="label" htmlFor="nome">Nome</label>
-                            <input className="input input-bordered w-full" type="text" id="nome" name="nome"
-                                   value={data.nome} onChange={handleChange}/>
-                        </div>
-
-                        <div className="flex flex-col w-full">
-                            <label className="label" htmlFor="cpf">CPF</label>
-                            <InputMask
-                                mask="___.___.___-__"
-                                replacement={{_: /\d/}}
-                                value={data.cpf}
-                                onChange={handleChange}
-                                id="cpf"
-                                name="cpf"
-                                className="input input-bordered w-full"
-                            />
-                        </div>
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="nome">Nome</label>
+                        <input
+                            className="input input-bordered w-full"
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            value={data.nome}
+                            required
+                            onChange={handleChange}
+                        />
                     </div>
 
-                    <div className="flex gap-4 w-full">
-                        <div className="flex flex-col w-full">
-                            <label className="label" htmlFor="rg">RG</label>
-                            <InputMask
-                                mask="___.___.___"
-                                replacement={{_: /\d/}}
-                                value={data.rg}
-                                onChange={handleChange}
-                                id="rg"
-                                name="rg"
-                                className="input input-bordered w-full"
-                            />
-                        </div>
-
-                        <div className="flex flex-col w-full">
-                            <label className="label" htmlFor="dataNascimento">Data de Nascimento</label>
-                            <InputMask
-                                mask="__/__/____"
-                                replacement={{_: /\d/}}
-                                value={formatDate(data.dataNascimento)}
-                                onChange={handleChange}
-                                id="dataNascimento"
-                                name="dataNascimento"
-                                className="input input-bordered w-full"
-                            />
-                        </div>
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="cpf">CPF</label>
+                        <InputMask
+                            mask="___.___.___-__"
+                            replacement={{_: /\d/}}
+                            value={data.cpf}
+                            onChange={handleChange}
+                            id="cpf"
+                            name="cpf"
+                            className="input input-bordered w-full"
+                            required
+                        />
                     </div>
 
-                    <div className="flex gap-4 w-full">
-                        <div className="flex flex-col w-full">
-                            <label className="label" htmlFor="sexo">Sexo</label>
-                            <select className="select select-bordered w-full" id="sexo" name="sexo" value={data.sexo}
-                                    onChange={handleChange}>
-                                <option value="">Selecionar</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Feminino">Feminino</option>
-                                <option value="Outro">Outro</option>
-                            </select>
-                        </div>
-
-                        <div className="flex flex-col w-full">
-                            <label className="label" htmlFor="estadoCivil">Estado Civil</label>
-                            <select className="select select-bordered w-full" id="estadoCivil" name="estadoCivil"
-                                    value={data.estadoCivil} onChange={handleChange}>
-                                <option value="">Selecionar</option>
-                                <option value="Solteiro">Solteiro</option>
-                                <option value="Solteira">Solteira</option>
-                                <option value="Casado">Casado</option>
-                                <option value="Casada">Casada</option>
-                                <option value="Divorciado">Divorciado</option>
-                                <option value="Divorciada">Divorciada</option>
-                                <option value="Viuvo">Viúvo</option>
-                                <option value="Viuva">Viúva</option>
-                            </select>
-                        </div>
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="rg">RG</label>
+                        <InputMask
+                            mask="___.___.___"
+                            replacement={{_: /\d/}}
+                            value={data.rg}
+                            onChange={handleChange}
+                            id="rg"
+                            name="rg"
+                            className="input input-bordered w-full"
+                            required
+                        />
                     </div>
 
-                    <div className="flex gap-4 w-full">
-                        <div className="flex flex-col w-full">
-                            <label className="label" htmlFor="telefone">Telefone</label>
-                            <InputMask
-                                mask="(__) _____-____"
-                                replacement={{_: /\d/}}
-                                value={data.telefone}
-                                onChange={handleChange}
-                                id="telefone"
-                                name="telefone"
-                                className="input input-bordered w-full"
-                            />
-                        </div>
-
-                        <div className="flex flex-col w-full">
-                            <label className="label" htmlFor="email">Email</label>
-                            <input className="input input-bordered w-full" type="text" id="email" name="email"
-                                   value={data.email} onChange={handleChange}/>
-                        </div>
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="dataNascimento">Data de Nascimento</label>
+                        <InputMask
+                            mask="__/__/____"
+                            replacement={{_: /\d/}}
+                            value={formatDate(data.dataNascimento)}
+                            onChange={handleChange}
+                            id="dataNascimento"
+                            name="dataNascimento"
+                            className="input input-bordered w-full"
+                            required
+                        />
                     </div>
 
-                    <div className="flex flex-col w-full">
-                        <label className="label" htmlFor="cepConsulta">CEP</label>
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="sexo">Sexo</label>
+                        <select
+                            className="select select-bordered w-full"
+                            id="sexo"
+                            name="sexo"
+                            value={data.sexo}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Selecionar</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="estadoCivil">Estado Civil</label>
+                        <select
+                            className="select select-bordered w-full"
+                            id="estadoCivil"
+                            name="estadoCivil"
+                            value={data.estadoCivil}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Selecionar</option>
+                            <option value="Solteiro">Solteiro</option>
+                            <option value="Solteira">Solteira</option>
+                            <option value="Casado">Casado</option>
+                            <option value="Casada">Casada</option>
+                            <option value="Divorciado">Divorciado</option>
+                            <option value="Divorciada">Divorciada</option>
+                            <option value="Viuvo">Viúvo</option>
+                            <option value="Viuva">Viúva</option>
+                        </select>
+                    </div>
+
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="telefone">Telefone</label>
+                        <InputMask
+                            mask="(__) _____-____"
+                            replacement={{_: /\d/}}
+                            value={data.telefone}
+                            onChange={handleChange}
+                            id="telefone"
+                            name="telefone"
+                            className="input input-bordered w-full"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="email">Email</label>
+                        <input
+                            className="input input-bordered w-full"
+                            type="text"
+                            id="email"
+                            name="email"
+                            value={data.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-control lg:col-span-2">
+                        <label className="label font-medium" htmlFor="cepConsulta">CEP</label>
                         <InputMask
                             mask="_____-___"
                             replacement={{_: /\d/}}
@@ -154,16 +213,14 @@ export function AddFormCliente({ handleSave, cliente }) {
                             id="cepConsulta"
                             name="cepConsulta"
                             className="input input-bordered w-full"
+                            required
                         />
                     </div>
 
-                    <div className="flex gap-4 w-full">
-                        <div className="flex flex-col w-full">
-                            <input className="btn btn-primary w-full" type="submit" value="Salvar cliente"/>
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <Link to="/" className="btn btn-primary w-full">Voltar para a página inicial</Link>
-                        </div>
+                    <div className="lg:col-span-6 flex justify-end gap-6 mt-4">
+                        <Link to="/" className="btn btn-soft">Voltar para a página inicial</Link>
+                        <button type="button" className="btn btn-soft btn-secondary" onClick={limparForm}>Limpar</button>
+                        <input className="btn btn-soft btn-primary" type="submit" value="Salvar cliente"/>
                     </div>
                 </form>
             </fieldset>

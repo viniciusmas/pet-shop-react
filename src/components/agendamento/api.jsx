@@ -1,15 +1,15 @@
-export default class ApiPet {
-    static base = "http://localhost:8081/api/pets";
+export default class ApiAgendamento {
+    static base = "http://localhost:8081/api/agendamentos";
 
-    static async CriarPet({ nome, tipoEspecie, raca, idade, peso, tutor, token }) {
+    static async CriarAgendamento({ cliente, pet, funcionario, servico, dataHora, token }) {
 
         const payload = {
-            nome: nome,
-            tipoEspecie: tipoEspecie,
-            raca: raca,
-            idade: Number(idade),
-            peso: Number(peso),
-            tutor: {id: Number(tutor)}
+            cliente: { id: Number(cliente) },
+            pet: { id: Number(pet) },
+            funcionario: { id: funcionario },
+            servico: servico,
+            dataHora: dataHora,
+            status: "AGENDADO",
         };
 
         const response = await fetch(this.base, {
@@ -23,7 +23,7 @@ export default class ApiPet {
         return await response.json();
     }
 
-    static async ListarPets(token) {
+    static async ListarAgendamentos(token) {
         const response = await fetch(this.base,{
             method: "GET",
             headers: {
@@ -33,15 +33,14 @@ export default class ApiPet {
         return await response.json();
     }
 
-    static async AtualizarPet({ id,nome, tipoEspecie, raca, idade, peso, tutor, token }) {
+    static async AtualizarAgendamento({ cliente, pet, funcionario, servico, dataHora, token }) {
 
         const payload = {
-            nome: nome,
-            tipoEspecie: tipoEspecie,
-            raca: raca,
-            idade: Number(idade),
-            peso: Number(peso),
-            tutor: {id: Number(tutor)}
+            cliente: { id: Number(cliente) },
+            pet: { id: Number(pet) },
+            funcionario: { id: funcionario },
+            servico: servico,
+            dataHora: dataHora,
         };
 
         const response = await fetch(`${this.base}/${id}`, {
@@ -55,7 +54,7 @@ export default class ApiPet {
         return await response.json();
     }
 
-    static async DeletarPet(id, token) {
+    static async DeletarAgendamento(id, token) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "DELETE",
             headers: {
@@ -64,7 +63,7 @@ export default class ApiPet {
         });
 
         if (!response.ok) {
-            throw new Error("Erro ao deletar pet");
+            throw new Error("Erro ao deletar agendamento.");
         }
 
         if (response.status === 204) {
@@ -72,8 +71,8 @@ export default class ApiPet {
         }
     }
 
-    static async GetPetByIdCliente(idCliente, token) {
-        const response = await fetch(`${this.base}/obterPorIdCliente/${idCliente}`,{
+    static async Get(id) {
+        const response = await fetch(`${this.base}/${id}`,{
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -81,4 +80,5 @@ export default class ApiPet {
         });
         return await response.json();
     }
+
 }

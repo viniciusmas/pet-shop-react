@@ -17,7 +17,7 @@ export default function Login() {
             <div className="card-body items-center text-center gap-4">
                 <span className="loading loading-spinner loading-lg text-primary"></span>
                 <h2 className="card-title text-lg">
-                    Login...
+                    Carregando...
                 </h2>
             </div>
         </div>

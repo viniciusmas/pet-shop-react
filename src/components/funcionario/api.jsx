@@ -1,18 +1,35 @@
 export default class ApiFuncionario {
     static base = "http://localhost:8081/api/funcionarios";
 
-    static async Create({ nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cargo, salario, bonus, cepConsulta, token }) {
+    static async CriarFuncionario({ nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cargo, salario, bonus, cepConsulta, token }) {
+
+        const payload = {
+            nome: nome,
+            cpf: cpf,
+            rg: rg,
+            dataNascimento: formatDate(dataNascimento),
+            sexo: sexo,
+            estadoCivil: estadoCivil,
+            telefone: telefone,
+            email: email,
+            cargo: cargo,
+            salario: salario,
+            bonus: bonus,
+            cepConsulta: cepConsulta,
+        };
+
         const response = await fetch(this.base, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cargo, salario, bonus, cepConsulta })
+            body: JSON.stringify(payload)
         });
         return await response.json();
     }
 
-    static async Read(token) {
+    static async ListarFuncionarios(token) {
         const response = await fetch(this.base,{
             method: "GET",
             headers: {
@@ -22,18 +39,35 @@ export default class ApiFuncionario {
         return await response.json();
     }
 
-    static async Update({ id, nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cargo, salario, bonus, cepConsulta, token }) {
+    static async AtualizarFuncionario({ id, nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cargo, salario, bonus, cepConsulta, token }) {
+
+        const payload = {
+            nome: nome,
+            cpf: cpf,
+            rg: rg,
+            dataNascimento: formatDate(dataNascimento),
+            sexo: sexo,
+            estadoCivil: estadoCivil,
+            telefone: telefone,
+            email: email,
+            cargo: cargo,
+            salario: salario,
+            bonus: bonus,
+            cepConsulta: cepConsulta,
+        };
+
         const response = await fetch(`${this.base}/${id}`, {
             method: "PUT",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ nome, cpf, rg, dataNascimento, sexo, estadoCivil, telefone, email, cargo, salario, bonus, cepConsulta })
+            body: JSON.stringify(payload)
         });
         return await response.json();
     }
 
-    static async Delete(id, token) {
+    static async DeletarFuncionario(id, token) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "DELETE",
             headers: {
@@ -59,4 +93,13 @@ export default class ApiFuncionario {
         });
         return await response.json();
     }
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    const dia = String(date.getDate()).padStart(2, "0");
+    const mes = String(date.getMonth() + 1).padStart(2, "0");
+    const ano = date.getFullYear();
+    return `${ano}-${mes}-${dia}`;
 }
