@@ -1,18 +1,29 @@
 export default class ApiPet {
     static base = "http://localhost:8081/api/pets";
 
-    static async Create({ nome, tipoEspecie, raca, idade, peso, tutor, token }) {
+    static async CriarPet({ nome, tipoEspecie, raca, idade, peso, tutor, token }) {
+
+        const payload = {
+            nome: nome,
+            tipoEspecie: tipoEspecie,
+            raca: raca,
+            idade: Number(idade),
+            peso: Number(peso),
+            tutor: {id: Number(tutor)}
+        };
+
         const response = await fetch(this.base, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ nome, tipoEspecie, raca, idade, peso, tutor: {id: tutor} })
+            body: JSON.stringify(payload)
         });
         return await response.json();
     }
 
-    static async Read(token) {
+    static async ListarPets(token) {
         const response = await fetch(this.base,{
             method: "GET",
             headers: {
@@ -22,18 +33,29 @@ export default class ApiPet {
         return await response.json();
     }
 
-    static async Update({ id,nome, tipoEspecie, raca, idade, peso, tutor, token }) {
+    static async AtualizarPet({ id,nome, tipoEspecie, raca, idade, peso, tutor, token }) {
+
+        const payload = {
+            nome: nome,
+            tipoEspecie: tipoEspecie,
+            raca: raca,
+            idade: Number(idade),
+            peso: Number(peso),
+            tutor: {id: Number(tutor)}
+        };
+
         const response = await fetch(`${this.base}/${id}`, {
             method: "PUT",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ nome, tipoEspecie, raca, idade, peso, tutor })
+            body: JSON.stringify(payload)
         });
         return await response.json();
     }
 
-    static async Delete(id, token) {
+    static async DeletarPet(id, token) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "DELETE",
             headers: {
@@ -50,11 +72,11 @@ export default class ApiPet {
         }
     }
 
-    static async Get(id) {
-        const response = await fetch(`${this.base}/${id}`,{
+    static async GetPetByIdCliente(idCliente, token) {
+        const response = await fetch(`${this.base}/obterPorIdCliente/${idCliente}`,{
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${this.token}`
+                "Authorization": `Bearer ${token}`
             }
         });
         return await response.json();

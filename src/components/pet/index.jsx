@@ -16,22 +16,22 @@ export function Pet() {
 
     async function savePet({ id, ...data }) {
         if (id) {
-            const result = await ApiPet.Update({ id, ...data, token });
+            const result = await ApiPet.AtualizarPet({ id, ...data, token });
             setPets((prev) => prev.map((p) => (p.id === result.id ? result : p))
             );
         } else {
-            const result = await ApiPet.Create({ ...data, token });
+            const result = await ApiPet.CriarPet({ ...data, token });
             setPets((prev) => [...prev, result]);
         }
     }
 
     async function removePet(id) {
-        await ApiPet.Delete(id, token);
+        await ApiPet.DeletarPet(id, token);
         setPets((prev) => prev.filter((p) => p.id !== id));
     }
 
     async function GetListPet(){
-        const result = await ApiPet.Read(token);
+        const result = await ApiPet.ListarPets(token);
         setPets(result);
     }
 

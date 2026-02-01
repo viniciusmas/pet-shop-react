@@ -15,22 +15,22 @@ export function Agendamento() {
 
     async function saveAgendamento({ id, ...data }) {
         if (id) {
-            const result = await ApiAgendamento.Update({ id, ...data, token });
+            const result = await ApiAgendamento.AtualizarAgendamento({ id, ...data, token });
             setAgendamentos((prev) => prev.map((c) => (c.id === result.id ? result : c))
             );
         } else {
-            const result = await ApiAgendamento.Create({ ...data, token });
+            const result = await ApiAgendamento.CriarAgendamento({ ...data, token });
             setAgendamentos((prev) => [...prev, result]);
         }
     }
 
     async function removeAgendamento(id) {
-        await ApiAgendamento.Delete(id, token);
+        await ApiAgendamento.DeletarAgendamento(id, token);
         setAgendamentos((prev) => prev.filter((c) => c.id !== id));
     }
 
     async function GetListAgendamento(){
-        const result = await ApiAgendamento.Read(token);
+        const result = await ApiAgendamento.ListarAgendamentos(token);
         setAgendamentos(result);
     }
 
@@ -44,14 +44,14 @@ export function Agendamento() {
         }
     }
 
-/*    useEffect(() => {
+    useEffect(() => {
         GetListAgendamento();
-    }, []);*/
+    }, []);
 
     return (
         <>
             <AddFormAgendamento handleSave={saveAgendamento} agendamento={agendamento} />
-            {/*<ListAgendamentos agendamentos={agendamentos} handleDelete={removeAgendamento} handleEdit={editCallBack} />*/}
+            <ListAgendamentos agendamentos={agendamentos} handleDelete={removeAgendamento} handleEdit={editCallBack} />
         </>
     )
 }

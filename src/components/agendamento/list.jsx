@@ -1,19 +1,27 @@
 export function ListAgendamentos({ agendamentos = [], handleDelete, handleEdit }) {
 
-    function formatDate(dateStr) {
+    function formatDateTime(dateStr) {
         if (!dateStr) return "";
-        return dateStr.split("T")[0];
+        const date = new Date(dateStr);
+        const dia = String(date.getDate()).padStart(2, "0");
+        const mes = String(date.getMonth() + 1).padStart(2, "0");
+        const ano = date.getFullYear();
+        const hora = String(date.getHours()).padStart(2, "0");
+        const minuto = String(date.getMinutes()).padStart(2, "0");
+        return `${dia}/${mes}/${ano} ${hora}:${minuto}`;
     }
 
-    function Item({ cliente, pet, funcionario, servico, dataHora, status, handleDelete, handleEdit }) {
+    function Item({id, cliente, pet, funcionario, servico, dataHora, status, handleDelete, handleEdit }) {
         return (
             <tr>
-                <td className="w-40">{cliente}</td>
-                <th className="w-12">{pet}</th>
-                <td className="w-32">{funcionario}</td>
-                <td className="w-32">{servico}</td>
-                <td className="w-36">{dataHora}</td>
-                <td className="w-32">{status}</td>
+
+                <td className="w-10">{id}</td>
+                <td className="w-30">{cliente}</td>
+                <th className="w-38">{pet}</th>
+                <td className="w-30">{funcionario}</td>
+                <td className="w-20">{servico}</td>
+                <td className="w-32">{formatDateTime(dataHora)}</td>
+                <td className="w-28">{status}</td>
                 <td className="w-24">
                     <button className="btn btn-ghost btn-xs" onClick={() => handleDelete(id)}>Deletar</button>
                     <button className="btn btn-ghost btn-xs" onClick={() => handleEdit(id)}>Editar</button>
@@ -46,7 +54,7 @@ export function ListAgendamentos({ agendamentos = [], handleDelete, handleEdit }
                     <tbody>
                     {agendamentos.map((agendamento) => (
                         <Item
-                            key={agendamento.cliente}
+                            key={agendamento.id}
                             {...agendamento}
                             handleDelete={handleDelete}
                             handleEdit={handleEdit}

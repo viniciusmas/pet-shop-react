@@ -1,19 +1,29 @@
 export default class ApiAgendamento {
     static base = "http://localhost:8081/api/agendamentos";
-    static async Create({ cliente, pet, funcionario, servico, dataHora, token }) {
-        const status = "AGENDADO";
+
+    static async CriarAgendamento({ cliente, pet, funcionario, servico, dataHora, token }) {
+
+        const payload = {
+            cliente: { id: Number(cliente) },
+            pet: { id: Number(pet) },
+            funcionario: { id: funcionario },
+            servico: servico,
+            dataHora: dataHora,
+            status: "AGENDADO",
+        };
+
         const response = await fetch(this.base, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ cliente, pet, funcionario, servico, dataHora, status })
+            body: JSON.stringify(payload)
         });
         return await response.json();
     }
 
-    static async Read(token) {
+    static async ListarAgendamentos(token) {
         const response = await fetch(this.base,{
             method: "GET",
             headers: {
@@ -23,18 +33,28 @@ export default class ApiAgendamento {
         return await response.json();
     }
 
-    static async Update({ cliente, pet, funcionario, servico, dataHora, token }) {
+    static async AtualizarAgendamento({ cliente, pet, funcionario, servico, dataHora, token }) {
+
+        const payload = {
+            cliente: { id: Number(cliente) },
+            pet: { id: Number(pet) },
+            funcionario: { id: funcionario },
+            servico: servico,
+            dataHora: dataHora,
+        };
+
         const response = await fetch(`${this.base}/${id}`, {
             method: "PUT",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ cliente, pet, funcionario, servico, dataHora })
+            body: JSON.stringify(payload)
         });
         return await response.json();
     }
 
-    static async Delete(id, token) {
+    static async DeletarAgendamento(id, token) {
         const response = await fetch(`${this.base}/${id}`, {
             method: "DELETE",
             headers: {
